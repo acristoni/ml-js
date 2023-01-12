@@ -3,26 +3,32 @@ let label = '';
 let video;
 let classifier;
 let mustageButton;
-let chiboleteButton;
-let bunnyButton;
+let xicaraButton;
 let trainButton;
+let saveButton;
 
 function modelReady() {
 	console.log('Model is ready!!!')
+	classifier.load('./model.json', customModelReady)
+}
+
+function customModelReady() {
+	console.log('Custom model is ready!!!')
+	classifier.classify(gotResults);
 }
 
 function videoReady() {
 	console.log('Video is ready!!!')
 }
 
-function whileTraining(loss) {
-	if (loss === null) {
-		console.log("Treinamento completo")
-		classifier.classify(gotResults);
-	} else {
-		console.log(loss)
-	}
-}
+// function whileTraining(loss) {
+// 	if (loss === null) {
+// 		console.log("Treinamento completo")
+// 		classifier.classify(gotResults);
+// 	} else {
+// 		console.log(loss)
+// 	}
+// }
 
 function gotResults(error, results) {
 	if (error) {
@@ -44,25 +50,25 @@ function setup() {
 	mobilenet = ml5.featureExtractor('MobileNet', modelReady);
 	classifier = mobilenet.classification(video, videoReady);
 
-	mustageButton = createButton('Adonai')
-	mustageButton.mousePressed(function() {
-		classifier.addImage('Mestre Dodo')
-	})
+	// mustageButton = createButton('Adonai')
+	// mustageButton.mousePressed(function() {
+	// 	classifier.addImage('Mestre Dodo')
+	// })
 
-	chiboleteButton = createButton('Miguel')
-	chiboleteButton.mousePressed(function() {
-		classifier.addImage('Chibolete')
-	})
+	// xicaraButton = createButton('Xícara')
+	// xicaraButton.mousePressed(function() {
+	// 	classifier.addImage('Xícara')
+	// })
 
-	bunnyButton = createButton('Elaine')
-	bunnyButton.mousePressed(function() {
-		classifier.addImage('Mulher Mais Linda do Mundo')
-	})
+	// trainButton = createButton('treinar IA')
+	// trainButton.mousePressed(function() {
+	// 	classifier.train(whileTraining);
+	// })
 
-	trainButton = createButton('train')
-	trainButton.mousePressed(function() {
-		classifier.train(whileTraining);
-	})
+	// saveButton = createButton('Salvar Modelo')
+	// saveButton.mousePressed(function() {
+	// 	classifier.save();
+	// })
 }
 
 function draw() {
