@@ -6,10 +6,8 @@ function preload() {
 	detector = ml5.objectDetector('cocossd', {}, modelLoaded);
 }
 
-function modelLoaded() {
-	console.log('Model Loaded!');
+function gotDetection() {
 	detector.detect(img, (err, results) => {
-		console.log(results); 
 		for (let i = 0; i < results.length; i++) {
 			let object = results[i];
 			stroke(0, 255, 0);
@@ -22,6 +20,15 @@ function modelLoaded() {
 			text(object.label, object.x + 10, object.y + 24);
 		}
 	});
+
+	setTimeout(() => {
+		return gotDetection()
+	}, 100);
+}
+
+function modelLoaded() {
+	console.log('Model Loaded!');
+	gotDetection()
 }
 
 
